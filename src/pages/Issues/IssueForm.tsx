@@ -14,7 +14,7 @@ const IssueForm = () => {
       fetchIssueById(parseInt(id)).then(issue => {
         setValue('description', issue.description);
         setValue('issue_type', issue.issue_type);
-        //setValue('date_reported', issue.date_reported.slice(0,10)); // ISO date string
+        setValue('date_reported', issue.date_reported.slice(0,10)); // ISO date string
         setValue('status', issue.status);
         setValue('motorcycle_id', issue.motorcycle_id);
       });

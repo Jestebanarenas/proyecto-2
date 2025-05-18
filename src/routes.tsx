@@ -1,7 +1,9 @@
-// src/routes.tsx
-
+// Este archivo define las rutas de la aplicación utilizando React Router.
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+
+import MapOrders from './pages/MapOrders'; // Importa el componente de mapa
+import Visualization from './pages/visualization'; // Importa el componente de visualización de datos
 
 import DriverList from './pages/Drivers/DriverList';
 import DriverForm from './pages/Drivers/DriverForm';
@@ -33,6 +35,9 @@ const AppRoutes = () => (
       <Route path="new" element={<DriverForm />} />
       <Route path="edit/:id" element={<DriverForm />} />
     </Route>
+
+      <Route path="map" element={<MapOrders />} /> {/* Ruta para el mapa */}
+      <Route path="visualization" element={<Visualization />} />
 
     <Route path="issues">
       <Route index element={<IssueList />} />
@@ -70,7 +75,7 @@ const AppRoutes = () => (
       <Route path="edit/:id" element={<ShiftForm />} />
     </Route>
 
-    {/* Puedes agregar rutas para login, dashboard, etc. */}
+    {/* Redirige cualquier ruta no encontrada a la lista de conductores */}
   </Routes>
 );
 
