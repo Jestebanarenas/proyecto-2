@@ -1,1 +1,1 @@
-//declaraciones ambientales
+/// <reference types="react-scripts" />
