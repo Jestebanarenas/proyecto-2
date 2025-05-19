@@ -1,3 +1,4 @@
+// ...existing imports...
 import React, { useEffect, useState } from "react";
 import { CustomerResponse } from "../../types/customer.type";
 import { AddressData, AddressResponse } from "../../types/Address.type";
@@ -31,6 +32,7 @@ const OrderForm: React.FC<Props> = ({ onSubmit, loading }) => {
     apto: "",
     order_id: undefined,
   });
+  const [useNewAddress, setUseNewAddress] = useState(false);
 
   // Load customers and restaurants on mount
   useEffect(() => {
@@ -45,7 +47,12 @@ const OrderForm: React.FC<Props> = ({ onSubmit, loading }) => {
         const filtered = addrs.filter(a => a.order_id === selectedCustomer);
         setAddresses(filtered);
         setSelectedAddress(filtered[0] || null);
+        setUseNewAddress(filtered.length === 0); // If no addresses, default to new
       });
+    } else {
+      setAddresses([]);
+      setSelectedAddress(null);
+      setUseNewAddress(false);
     }
   }, [selectedCustomer]);
 
@@ -79,7 +86,7 @@ const OrderForm: React.FC<Props> = ({ onSubmit, loading }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     let addressToUse = selectedAddress;
-    if (!addressToUse && selectedCustomer) {
+    if (useNewAddress && selectedCustomer) {
       addressToUse = await createAddress({ ...newAddress, order_id: selectedCustomer });
     }
     if (!selectedCustomer || !selectedRestaurant || products.length === 0) return;
@@ -106,57 +113,76 @@ const OrderForm: React.FC<Props> = ({ onSubmit, loading }) => {
         ))}
       </select>
 
-      {addresses.length > 0 ? (
+      {selectedCustomer && (
         <>
           <label>Dirección:</label>
-          <select
-            value={selectedAddress?.id ?? ""}
-            onChange={e => setSelectedAddress(addresses.find(a => a.id === Number(e.target.value)) || null)}
-            required
-          >
-            <option value="">Selecciona una dirección</option>
-            {addresses.map(a => (
-              <option key={a.id} value={a.id}>{a.street}, {a.city}</option>
-            ))}
-          </select>
-        </>
-      ) : (
-        <>
-          <label>Nueva dirección:</label>
-          <input
-            name="street"
-            placeholder="Calle"
-            value={newAddress.street}
-            onChange={e => setNewAddress({ ...newAddress, street: e.target.value })}
-            required
-          />
-          <input
-            name="city"
-            placeholder="Ciudad"
-            value={newAddress.city}
-            onChange={e => setNewAddress({ ...newAddress, city: e.target.value })}
-            required
-          />
-          <input
-            name="state"
-            placeholder="Estado"
-            value={newAddress.state}
-            onChange={e => setNewAddress({ ...newAddress, state: e.target.value })}
-            required
-          />
-          <input
-            name="postal_code"
-            placeholder="Código Postal"
-            value={newAddress.postal_code}
-            onChange={e => setNewAddress({ ...newAddress, postal_code: e.target.value })}
-            required
-          />
-          <input
-            name="apto"
-            placeholder="Apto (opcional)"
-            value={newAddress.apto}
-            onChange={e => setNewAddress({ ...newAddress, apto: e.target.value })}
-          />
+          {addresses.length > 0 && !useNewAddress ? (
+            <>
+              <select
+                value={selectedAddress?.id ?? ""}
+                onChange={e => setSelectedAddress(addresses.find(a => a.id === Number(e.target.value)) || null)}
+                required
+              >
+                <option value="">Selecciona una dirección</option>
+                {addresses.map(a => (
+                  <option key={a.id} value={a.id}>{a.street}, {a.city}</option>
+                ))}
+              </select>
+              <button
+                type="button"
+                style={{ margin: "8px 0" }}
+                onClick={() => setUseNewAddress(true)}
+              >
+                Usar nueva dirección
+              </button>
+            </>
+          ) : (
+            <>
+              <input
+                name="street"
+                placeholder="Calle"
+                value={newAddress.street}
+                onChange={e => setNewAddress({ ...newAddress, street: e.target.value })}
+                required
+              />
+              <input
+                name="city"
+                placeholder="Ciudad"
+                value={newAddress.city}
+                onChange={e => setNewAddress({ ...newAddress, city: e.target.value })}
+                required
+              />
+              <input
+                name="state"
+                placeholder="Estado"
+                value={newAddress.state}
+                onChange={e => setNewAddress({ ...newAddress, state: e.target.value })}
+                required
+              />
+              <input
+                name="postal_code"
+                placeholder="Código Postal"
+                value={newAddress.postal_code}
+                onChange={e => setNewAddress({ ...newAddress, postal_code: e.target.value })}
+                required
+              />
+              <input
+                name="apto"
+                placeholder="Apto (opcional)"
+                value={newAddress.apto}
+                onChange={e => setNewAddress({ ...newAddress, apto: e.target.value })}
+              />
+              {addresses.length > 0 && (
+                <button
+                  type="button"
+                  style={{ margin: "8px 0" }}
+                  onClick={() => setUseNewAddress(false)}
+                >
+                  Usar dirección existente
+                </button>
+              )}
+            </>
+          )}
         </>
       )}
 
@@ -202,3 +228,4 @@ const OrderForm: React.FC<Props> = ({ onSubmit, loading }) => {
 };
 
 export default OrderForm;
+// ...existing code...

@@ -3,7 +3,6 @@ import { CustomerResponse, CustomerData } from "../../types/customer.type";
 import { getCustomers, deleteCustomer, createCustomer, updateCustomer, getCustomer } from "../../api/customer.api";
 import Modal from "../common/modalForm";
 import CustomerForm from "./CustomerForm";
-import { Link } from "react-router-dom";
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState<CustomerResponse[] | null>(null);
@@ -99,7 +98,6 @@ const CustomerTable = () => {
               <th>Phone</th>
               <th>created</th>
               <th>Actions</th>
-              <th>ordenes</th>
             </tr>
           </thead>
           <tbody>
@@ -119,9 +117,6 @@ const CustomerTable = () => {
                   <button onClick={() => handleUpdate(customer.id)} style={{ marginRight: "5px" }}>Update</button>
                   <button onClick={() => handleDelete(customer.id)} style={{ color: "red" }}>Delete</button>
                 </td>
-                <Link to={`/customers/${customer.id}/orders`} className="main-link">
-                  Ver Órdenes
-                </Link>
               </tr>
             ))}
           </tbody>

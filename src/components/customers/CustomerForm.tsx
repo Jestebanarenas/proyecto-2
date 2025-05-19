@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CustomerData, CustomerResponse } from "../../types/customer.type";
+import { CustomerData} from "../../types/customer.type";
 
 interface Props {
   initialData?: CustomerData;
