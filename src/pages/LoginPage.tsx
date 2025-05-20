@@ -58,22 +58,6 @@ const LoginPage: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 100 }}>
       <h2>Iniciar sesión</h2>
-      <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-      <hr style={{ width: '100%', margin: '20px 0' }} />
-      <button
-        onClick={handleGithubLogin}
-        style={{
-          background: '#24292e',
-          color: '#fff',
-          border: 'none',
-          padding: '10px 20px',
-          borderRadius: 5,
-          cursor: 'pointer',
-          fontSize: 16,
-        }}
-      >
-        Iniciar sesión con GitHub
-      </button>
       <div
         style={{
           width: 300,
