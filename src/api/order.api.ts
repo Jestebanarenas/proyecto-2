@@ -21,3 +21,12 @@ export const getOrders = async (): Promise<OrderResponse[]> => {
   const res = await axios.get<OrderResponse[]>(`${API_URL}/orders`);
   return res.data;
 };
+
+export const deleteOrder = async (orderId: number): Promise<void> => {
+  await axios.delete(`${API_URL}/orders/${orderId}`);
+};
+
+export const updateOrder = async (orderId: number, data: Partial<OrderData>): Promise<OrderResponse> => {
+  const res = await axios.put<OrderResponse>(`${API_URL}/orders/${orderId}`, data);
+  return res.data;
+};
