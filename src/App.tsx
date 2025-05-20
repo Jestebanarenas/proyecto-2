@@ -15,14 +15,14 @@ import Header from './components/common/Header';
 import OrdersByCustomerPage from './pages/OrdersByCustomer';
 import StatsDashboard from './pages/Graphics';
 import Chatbot from './components/bot/Chatbot';
-import DriverTable from './components/Driver/DriverTable';
-import MotorcycleTable from './components/motorcycles/motorcycleTable';
-import PhotoTable from './components/Photo/photoTable';
-import PhotoForm from './components/Photo/photoForm';
-import MotorcycleForm from './components/motorcycles/MotorcycleForm';
-import { PhotoData } from './types/photo.types';
-import { MotorcycleData } from './types/Motorcycle.type';
-import IssueTable from './components/Issues/IssuesTable';
+//import DriverTable from './components/Driver/DriverTable';
+//import MotorcycleTable from './components/motorcycles/motorcycleTable';
+//import PhotoTable from './components/Photo/photoTable';
+//import PhotoForm from './components/Photo/photoForm';
+//import MotorcycleForm from './components/motorcycles/MotorcycleForm';
+//import { PhotoData } from './types/photo.types';
+//mport { MotorcycleData } from './types/Motorcycle.type';
+//import IssueTable from './components/Issues/IssuesTable';
 
 
 const App = () => {
@@ -48,16 +48,6 @@ const App = () => {
           <Route path="/orders/new" element={<OrderPage />} />
           <Route path="/orders/by-customer" element={<OrdersByCustomerPage />} />
           <Route path="/stats" element={<StatsDashboard />} />
-          <Route path="/drivers" element={<DriverTable />} />
-          <Route path="/motorcycles" element={<MotorcycleTable />} />
-          <Route path="/photos" element={<PhotoTable />} />
-          <Route path="/photos/new" element={<PhotoForm onSubmit={function (data: PhotoData): void {
-            throw new Error('Function not implemented.');
-          } } />} />
-          <Route path="/motorcycles/new" element={<MotorcycleForm onSubmit={function (data: MotorcycleData): void {
-            throw new Error('Function not implemented.');
-          } } />} />
-          <Route path="/issues" element={<IssueTable />} />
           {/* Add more routes as needed */}
         </Routes>
         <Chatbot />
