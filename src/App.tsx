@@ -15,6 +15,7 @@ import Header from './components/common/Header';
 import OrdersByCustomerPage from './pages/OrdersByCustomer';
 import StatsDashboard from './pages/Graphics';
 import Chatbot from './components/bot/Chatbot';
+import PedidoNotifier from './components/PedidoNotifier';
 //import DriverTable from './components/Driver/DriverTable';
 //import MotorcycleTable from './components/motorcycles/motorcycleTable';
 //import PhotoTable from './components/Photo/photoTable';
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/orders/new" element={<OrderPage />} />
           <Route path="/orders/by-customer" element={<OrdersByCustomerPage />} />
           <Route path="/stats" element={<StatsDashboard />} />
+          <Route path="/pedido-notifier" element={<PedidoNotifier pedidos={[]} />} />
           {/* Add more routes as needed */}
         </Routes>
         <Chatbot />

@@ -1,8 +1,11 @@
-export interface Motorcycle {
-  id: number;
+export interface MotorcycleData {
   license_plate: string;
   brand: string;
   year: number;
   status: string;
-  driver_id: number;
+}
+
+export interface MotorcycleResponse extends MotorcycleData {
+  id: number;
+  created_at: string;
 }
