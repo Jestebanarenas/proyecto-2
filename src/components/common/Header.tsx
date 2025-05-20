@@ -36,7 +36,26 @@ const Header: React.FC = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/" className="navbar-brand">Panel Principal</Link>
+        {/* Imagen SVG de hamburguesa y título al lado */}
+        <Link to="/" className="navbar-brand" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+            {/* Pan superior */}
+            <ellipse cx="24" cy="16" rx="18" ry="8" fill="#FFD966" stroke="#C68642" strokeWidth="2"/>
+            {/* Semillas */}
+            <ellipse cx="18" cy="14" rx="1.2" ry="0.6" fill="#fff" />
+            <ellipse cx="24" cy="13" rx="1.2" ry="0.6" fill="#fff" />
+            <ellipse cx="30" cy="15" rx="1.2" ry="0.6" fill="#fff" />
+            {/* Lechuga */}
+            <rect x="8" y="20" width="32" height="4" rx="2" fill="#92C47E"/>
+            {/* Carne */}
+            <rect x="10" y="24" width="28" height="6" rx="3" fill="#8B5C2A"/>
+            {/* Queso */}
+            <rect x="12" y="30" width="24" height="4" rx="2" fill="#FFD966"/>
+            {/* Pan inferior */}
+            <ellipse cx="24" cy="36" rx="16" ry="6" fill="#FFD966" stroke="#C68642" strokeWidth="2"/>
+          </svg>
+          <span style={{ marginLeft: 12, fontWeight: 700, fontSize: 22, color: "#222" }}>Domi JJJ</span>
+        </Link>
       </div>
       <div className="navbar-links">
         <Link to="/customers" className="navbar-link">Clientes</Link>
