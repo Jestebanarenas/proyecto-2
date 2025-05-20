@@ -1,56 +1,111 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Motorcycle } from '../../types/Motorcycle.type';
-import { createMotorcycle, updateMotorcycle, fetchMotorcycleById } from '../../api/motorcycle.api';
-import { useNavigate, useParams } from 'react-router-dom';
+import { fetchMotorcycles, deleteMotorcycle } from '../../api/motorcycle.api';
+import { Link, useNavigate } from 'react-router-dom';
 
-const MotorcycleForm = () => {
-  const { id } = useParams<{ id: string }>();
+const MotorcycleTable = () => {
+  const [motorcycles, setMotorcycles] = useState<Motorcycle[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<Motorcycle>();
 
-  React.useEffect(() => {
-    if (id) {
-      fetchMotorcycleById(Number(id)).then(moto => {
-        setValue('license_plate', moto.license_plate);
-        setValue('brand', moto.brand);
-        setValue('year', moto.year);
-        setValue('status', moto.status);
-      });
-    }
-  }, [id, setValue]);
-
-  const onSubmit = async (data: Motorcycle) => {
+  // Mejorar: useCallback para evitar recrear la función en cada render
+  const loadMotorcycles = useCallback(async () => {
     try {
-      if (id) await updateMotorcycle(Number(id), data);
-      else await createMotorcycle(data);
-      navigate('/motorcycles');
-    } catch (e) {
-      alert('Error guardando motocicleta');
+      setLoading(true);
+      setError(null);
+      const data = await fetchMotorcycles();
+      setMotorcycles(data);
+    } catch (error) {
+      setError('Error cargando las motocicletas');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadMotorcycles();
+  }, [loadMotorcycles]);
+
+  const handleDelete = async (id: number) => {
+    if (window.confirm('¿Estás seguro de eliminar esta motocicleta?')) {
+      try {
+        await deleteMotorcycle(id);
+        setMotorcycles((prev) => prev.filter((moto) => moto.id !== id));
+      } catch (error) {
+        setError('Error eliminando la motocicleta');
+      }
     }
   };
 
+  const handleEdit = (id: number) => {
+    navigate(`/motorcycles/edit/${id}`);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label>Placa:</label>
-      <input {...register('license_plate', { required: true })} />
-      {errors.license_plate && <p>La placa es obligatoria</p>}
+    <div className="motorcycle-table-container">
+      <h2>Lista de Motocicletas</h2>
 
-      <label>Marca:</label>
-      <input {...register('brand', { required: true })} />
-      {errors.brand && <p>La marca es obligatoria</p>}
+      <Link to="/motorcycles/new" className="create-button">
+        Crear Nueva Motocicleta
+      </Link>
 
-      <label>Año:</label>
-      <input type="number" {...register('year', { required: true, valueAsNumber: true })} />
-      {errors.year && <p>El año es obligatorio</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <label>Status:</label>
-      <input {...register('status', { required: true })} />
-      {errors.status && <p>El estado es obligatorio</p>}
-
-      <button type="submit">Guardar</button>
-    </form>
+      {loading ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span className="spinner" style={{
+            width: 18, height: 18, border: '3px solid #ccc', borderTop: '3px solid #333', borderRadius: '50%', display: 'inline-block', animation: 'spin 1s linear infinite'
+          }} />
+          <span>Cargando...</span>
+          <style>
+            {`@keyframes spin { 100% { transform: rotate(360deg); } }`}
+          </style>
+        </div>
+      ) : (
+        <>
+          {motorcycles.length === 0 ? (
+            <p>No hay motocicletas registradas</p>
+          ) : (
+            <table className="motorcycle-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Placa</th>
+                  <th>Marca</th>
+                  <th>Año</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {motorcycles.map((moto) => (
+                  <tr key={moto.id}>
+                    <td>{moto.id}</td>
+                    <td>{moto.license_plate}</td>
+                    <td>{moto.brand}</td>
+                    <td>{moto.year}</td>
+                    <td>{moto.status}</td>
+                    <td>
+                      <button onClick={() => handleEdit(moto.id)}>
+                        Editar
+                      </button>
+                      <button
+                        onClick={() => handleDelete(moto.id)}
+                        style={{ marginLeft: 8, color: 'red' }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
+      )}
+    </div>
   );
 };
 
-export default MotorcycleForm;
+export default MotorcycleTable;
