@@ -26,11 +26,10 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  const handleLogout = () => {
+   const handleLogout = () => {
     localStorage.removeItem('google_token');
     localStorage.removeItem('google_user');
-    setUser(null);
-    navigate('/login');
+    window.location.href = '/login';
   };
 
   return (
