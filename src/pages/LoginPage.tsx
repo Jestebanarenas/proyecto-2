@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
-const GITHUB_CLIENT_ID = 'TU_CLIENT_ID_DE_GITHUB'; // Reemplaza con tu Client ID real
+const GITHUB_CLIENT_ID = 'Ov23liiR619Hw3omiBLG'; // Reemplaza con tu Client ID real
 const REDIRECT_URI = 'http://localhost:3000'; // Cambia según tu configuración
 
 const LoginPage: React.FC = () => {
@@ -27,6 +27,14 @@ const LoginPage: React.FC = () => {
   };
 
   React.useEffect(() => {
+    // Detectar si hay un code de GitHub en la URL
+    const params = new URLSearchParams(window.location.search);
+    const githubCode = params.get('code');
+    if (githubCode) {
+      console.log('GitHub code:', githubCode);
+      // Aquí normalmente enviarías el code a tu backend para obtener el token
+    }
+
     const token = localStorage.getItem('google_token');
     if (token) {
       console.log('Google Token:', token);
