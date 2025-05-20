@@ -12,6 +12,9 @@ import OrderPage from './components/order/OrderPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import LoginPage from './pages/LoginPage';
 import Header from './components/common/Header';
+import OrdersByCustomerPage from './pages/OrdersByCustomer';
+import StatsDashboard from './pages/Graphics';
+
 
 
 const App = () => {
@@ -35,6 +38,8 @@ const App = () => {
           <Route path="/restaurants/:restaurantId/menu" element={<MenuTable />} />
           <Route path="/orders" element={<OrderPage />} />
           <Route path="/orders/new" element={<OrderPage />} />
+          <Route path="/orders/by-customer" element={<OrdersByCustomerPage />} />
+          <Route path="/stats" element={<StatsDashboard />} />
           {/* Add more routes as needed */}
         </Routes>
       </BrowserRouter>

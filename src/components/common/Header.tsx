@@ -44,6 +44,8 @@ const Header: React.FC = () => {
         <Link to="/products" className="navbar-link">Productos</Link>
         <Link to="/restaurants" className="navbar-link">Restaurantes</Link>
         <Link to="/orders/new" className="navbar-link">Crear Pedido</Link>
+        <Link to="/orders/by-customer" className="navbar-link">Órdenes por Cliente</Link>
+        <Link to="/stats" className="navbar-link">Estadísticas</Link>
         {!user && (
           <Link to="/login" className="navbar-link">Login</Link>
         )}
