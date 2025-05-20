@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getOrders } from "../api/order.api";
+import { getOrders, deleteOrder, updateOrder } from "../api/order.api";
 import { OrderResponse } from "../types/Order.type";
 
 interface OrdersByCustomer {
@@ -14,7 +14,24 @@ const OrdersByCustomerPage: React.FC = () => {
   const [ordersByCustomer, setOrdersByCustomer] = useState<OrdersByCustomer>({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  // Simple update: only allow updating status for demonstration
+  const handleUpdate = async (order: OrderResponse) => {
+    const newStatus = prompt(
+      `Actualizar estado de la orden ${order.id} (actual: ${order.status}):`,
+      order.status
+    );
+    if (newStatus && newStatus !== order.status) {
+      try {
+        await updateOrder(order.id, { status: newStatus });
+        fetchOrders();
+      } catch {
+        alert("Error actualizando la orden");
+      }
+    }
+  };
+
+  const fetchOrders = () => {
+    setLoading(true);
     getOrders().then((orders) => {
       const grouped: OrdersByCustomer = {};
       orders.forEach((order) => {
@@ -31,7 +48,23 @@ const OrdersByCustomerPage: React.FC = () => {
       setOrdersByCustomer(grouped);
       setLoading(false);
     });
+  };
+
+  useEffect(() => {
+    fetchOrders();
+    // eslint-disable-next-line
   }, []);
+
+  const handleDelete = async (orderId: number) => {
+    if (window.confirm("¿Seguro que deseas eliminar esta orden?")) {
+      try {
+        await deleteOrder(orderId);
+        fetchOrders();
+      } catch {
+        alert("Error eliminando la orden");
+      }
+    }
+  };
 
   return (
     <div className="customer-table-container">
@@ -56,6 +89,7 @@ const OrdersByCustomerPage: React.FC = () => {
                     <th>Restaurante</th>
                     <th>Total</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,6 +105,10 @@ const OrdersByCustomerPage: React.FC = () => {
                       <td>{order.menu?.restaurant?.name || "-"}</td>
                       <td>${order.total_price}</td>
                       <td>{order.status}</td>
+                      <td>
+                        <button onClick={() => handleUpdate(order)} style={{ marginRight: 6 }}>Actualizar</button>
+                        <button onClick={() => handleDelete(order.id)} style={{ color: "red" }}>Eliminar</button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

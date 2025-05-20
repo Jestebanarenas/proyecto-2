@@ -12,6 +12,7 @@ export interface OrderData {
   address: AddressResponse | null;
   restaurant_id: number;
   products: OrderProduct[];
+  status?: string;
 }
 
 export interface OrderResponse {
