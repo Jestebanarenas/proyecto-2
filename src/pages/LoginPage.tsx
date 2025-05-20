@@ -1,5 +1,7 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';
+
 
 const GITHUB_CLIENT_ID = 'Ov23liiR619Hw3omiBLG';
 const REDIRECT_URI = 'http://localhost:3000';
@@ -26,7 +28,14 @@ const microsoftIcon = (
 const LoginPage: React.FC = () => {
   const handleSuccess = (credentialResponse: any) => {
     localStorage.setItem('google_token', credentialResponse.credential);
-    window.location.href = '/';
+
+    // Decode JWT to get user info
+    const base64Url = credentialResponse.credential.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const user = JSON.parse(decodeURIComponent(escape(window.atob(base64))));
+    localStorage.setItem('google_user', JSON.stringify(user));
+
+    window.location.href = '/'; // Redirect after login
   };
 
   const handleError = () => {
