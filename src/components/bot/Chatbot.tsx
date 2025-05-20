@@ -1,67 +1,66 @@
 import React, { useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
 
-const PAGE_HINTS: { [key: string]: string } = {
-  "/": "Estás en el panel principal. Puedes navegar a las diferentes secciones usando el menú superior.",
-  "/customers": "Aquí puedes ver, crear, editar y eliminar clientes. Haz clic en 'Create Customer' para agregar uno nuevo o en 'Ver Órdenes' para ver las órdenes de un cliente.",
-  "/adresses": "Aquí puedes gestionar las direcciones de entrega de los clientes.",
-  "/products": "Aquí puedes ver y administrar los productos disponibles.",
-  "/restaurants": "Aquí puedes ver, crear, editar y eliminar restaurantes. También puedes acceder al menú de cada restaurante.",
-  "/orders": "Aquí puedes ver y crear pedidos. Completa el formulario para registrar un nuevo pedido.",
-  "/orders/new": "Aquí puedes crear un nuevo pedido llenando el formulario.",
-  "/orders/by-customer": "Aquí puedes ver todas las órdenes agrupadas por cliente.",
-  "/stats": "Aquí puedes ver estadísticas de ventas, clientes y direcciones en gráficos.",
-};
+const GEMINI_API_KEY = 'AIzaSyDph8V6LY52TrNS8lfUM-ib4cZmZEY58PY'; // Reemplaza con tu API Key real
 
-function analyzePage(pathname: string): string {
-  // Busca hint por ruta exacta o por prefijo
-  let hint = PAGE_HINTS[pathname];
-  if (!hint) {
-    // Busca por prefijo (por ejemplo, /customers/123/orders)
-    const found = Object.keys(PAGE_HINTS).find((k) => pathname.startsWith(k));
-    hint = found ? PAGE_HINTS[found] || "" : "";
+async function sendMessageToGemini(message: string): Promise<string> {
+  try {
+    const response = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "model",
+              parts: [
+                {
+                  text: "Eres un asistente virtual de soporte. Solo responde preguntas relacionadas con esta aplicación. Si la pregunta no es sobre la app, responde: 'Solo puedo responder dudas sobre esta aplicación.'"
+                }
+              ]
+            },
+            {
+              role: "user",
+              parts: [
+                { text: message }
+              ]
+            }
+          ]
+        })
+      }
+    );
+    const data = await response.json();
+    if (data.error) {
+      return data.error.message || 'Error de Gemini: revisa tu API Key o cuota.';
+    }
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || 'No se pudo obtener respuesta de Gemini.';
+  } catch (err) {
+    return 'Ocurrió un error al consultar Gemini.';
   }
-  return (
-    hint ||
-    "No tengo información específica para esta página, pero puedes navegar usando el menú superior o consultar las secciones principales."
-  );
 }
 
 const Chatbot: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>([
-    { from: "bot", text: "¡Hola! Soy tu asistente. Pregúntame qué puedes hacer en esta página o pide ayuda sobre el sistema." }
-  ]);
+  const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>(
+    [
+      { from: "bot", text: "¡Hola! Soy tu asistente Gemini. Pregúntame lo que quieras." }
+    ]
+  );
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const location = useLocation();
 
-  const handleSend = (e?: React.FormEvent) => {
+  const handleSend = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!input.trim()) return;
-    const userMsg: { from: "user"; text: string } = { from: "user", text: input };
-    let botText = "";
-    const q = input.trim().toLowerCase();
-
-    // Si el usuario pide ayuda o pregunta por la página, responde analizando la ruta
-    if (
-      q.includes("qué puedo hacer") ||
-      q.includes("ayuda") ||
-      q.includes("analiza la página") ||
-      q.includes("dónde estoy") ||
-      q.includes("para qué sirve esta página") ||
-      q.includes("cómo funciona")
-    ) {
-      botText = analyzePage(location.pathname);
-    } else {
-      // Respuesta genérica si no reconoce la pregunta
-      botText =
-        "Puedo ayudarte a entender qué puedes hacer en cada página. Pregúntame por ejemplo: '¿Qué puedo hacer aquí?' o 'Ayuda'.";
-    }
-
-    const botMsg: { from: "bot"; text: string } = { from: "bot", text: botText };
-    setMessages((msgs) => [...msgs, userMsg, botMsg]);
+    const userMsg = { from: "user" as const, text: input };
+    setMessages((msgs) => [...msgs, userMsg]);
     setInput("");
+
+    let botText = "";
+    botText = await sendMessageToGemini(input);
+
+    const botMsg = { from: "bot" as const, text: botText };
+    setMessages((msgs) => [...msgs, botMsg]);
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
@@ -127,7 +126,31 @@ const Chatbot: React.FC = () => {
               alignItems: "center"
             }}
           >
-            Asistente
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{
+                width: 38,
+                height: 38,
+                borderRadius: "50%",
+                overflow: "hidden",
+                border: "2px solid #1976d2",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "#fff",
+                animation: "avatar-bounce 1s infinite alternate"
+              }}>
+                <img
+                  src="/195.jpg"
+                  alt="Chatbot Avatar"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover"
+                  }}
+                />
+              </div>
+              <span>Asistente Gemini</span>
+            </div>
             <button
               onClick={() => setOpen(false)}
               style={{
@@ -155,9 +178,36 @@ const Chatbot: React.FC = () => {
                 key={idx}
                 style={{
                   margin: "8px 0",
-                  textAlign: msg.from === "user" ? "right" : "left"
+                  display: "flex",
+                  flexDirection: msg.from === "bot" ? "row" : "row-reverse",
+                  alignItems: "flex-end"
                 }}
               >
+                {msg.from === "bot" && (
+                  <div style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    border: "2px solid #1976d2",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "#fff",
+                    marginRight: 8,
+                    animation: "avatar-bounce 1s infinite alternate"
+                  }}>
+                    <img
+                      src="/195.jpg"
+                      alt="Chatbot Avatar"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover"
+                      }}
+                    />
+                  </div>
+                )}
                 <span
                   style={{
                     display: "inline-block",
@@ -220,6 +270,15 @@ const Chatbot: React.FC = () => {
               Enviar
             </button>
           </form>
+          {/* Animación para el avatar */}
+          <style>
+            {`
+              @keyframes avatar-bounce {
+                0% { transform: translateY(0);}
+                100% { transform: translateY(-6px);}
+              }
+            `}
+          </style>
         </div>
       )}
     </div>
