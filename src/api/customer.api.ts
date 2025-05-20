@@ -42,7 +42,7 @@ export const createCustomer = async (customerData: CustomerData): Promise<Custom
     return response.data;
   } catch (error) {
     console.error("Error creating customer:", error);
-    throw error;
+    throw error;  
   }
 }
 

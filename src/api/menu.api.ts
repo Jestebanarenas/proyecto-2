@@ -13,22 +13,22 @@ fetch("/api/endpoint", {
 });
 
 export const getMenusByRestaurant = async (restaurantId: number): Promise<MenuResponse[]> => {
-  const res = await axios.get(`${API_URL}/restaurants/${restaurantId}/menus`);
+  const res = await axios.get<MenuResponse[]>(`${API_URL}/restaurants/${restaurantId}/menus`);
   return res.data;
 };
 
 export const getMenu = async (id: number): Promise<MenuResponse> => {
-  const res = await axios.get(`${API_URL}/menus/${id}`);
+  const res = await axios.get<MenuResponse>(`${API_URL}/menus/${id}`);
   return res.data;
 };
 
 export const createMenu = async (data: MenuData): Promise<MenuResponse> => {
-  const res = await axios.post(`${API_URL}/menus`, data);
+  const res = await axios.post<MenuResponse>(`${API_URL}/menus`, data);
   return res.data;
 };
 
 export const updateMenu = async (id: number, data: MenuData): Promise<MenuResponse> => {
-  const res = await axios.put(`${API_URL}/menus/${id}`, data);
+  const res = await axios.put<MenuResponse>(`${API_URL}/menus/${id}`, data);
   return res.data;
 };
 
