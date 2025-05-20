@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DriverData, DriverResponse } from "../types/Driver.type";
+import { DriverData, DriverResponse } from "../types/driver.type";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 

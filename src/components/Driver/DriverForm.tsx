@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Driver } from '../../models/Driver';
+import { Driver } from '../.../types/Driver.type';
 import { crearDriver, actualizarDriver, fetchDriverById } from '../../services/driversService';
 import { useNavigate, useParams } from 'react-router-dom';
 
