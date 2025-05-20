@@ -2,7 +2,6 @@ import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 
 const GITHUB_CLIENT_ID = 'Ov23liiR619Hw3omiBLG';
-const GITHUB_CLIENT_SECRET = 'TU_CLIENT_SECRET'; // Peligroso en frontend, solo para pruebas
 const REDIRECT_URI = 'http://localhost:3000';
 
 const MICROSOFT_CLIENT_ID = 'f8cdef31-a31e-4b4a-93e4-5f571e91255a';
@@ -27,7 +26,6 @@ const microsoftIcon = (
 const LoginPage: React.FC = () => {
   const handleSuccess = (credentialResponse: any) => {
     localStorage.setItem('google_token', credentialResponse.credential);
-    console.log('Google Token:', credentialResponse.credential);
     window.location.href = '/';
   };
 
@@ -60,7 +58,15 @@ const LoginPage: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 100 }}>
       <h2>Iniciar sesión</h2>
-      <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div
+        style={{
+          width: 300,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          alignItems: 'stretch'
+        }}
+      >
         <div style={{ width: '100%' }}>
           <GoogleLogin
             onSuccess={handleSuccess}
@@ -78,7 +84,6 @@ const LoginPage: React.FC = () => {
             background: '#fff',
             color: '#24292e',
             border: '1px solid #dadce0',
-            padding: '0 0',
             borderRadius: 5,
             cursor: 'pointer',
             fontSize: 16,
@@ -88,11 +93,12 @@ const LoginPage: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            justifyContent: 'center'
+            justifyContent: 'flex-start',
+            paddingLeft: 16
           }}
         >
           {githubIcon}
-          Iniciar sesión con GitHub
+          <span style={{ flex: 1, textAlign: 'center' }}>Iniciar sesión con GitHub</span>
         </button>
         <button
           onClick={handleMicrosoftLogin}
@@ -100,7 +106,6 @@ const LoginPage: React.FC = () => {
             background: '#fff',
             color: '#2F2F2F',
             border: '1px solid #dadce0',
-            padding: '0 0',
             borderRadius: 5,
             cursor: 'pointer',
             fontSize: 16,
@@ -110,11 +115,12 @@ const LoginPage: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            justifyContent: 'center'
+            justifyContent: 'flex-start',
+            paddingLeft: 16
           }}
         >
           {microsoftIcon}
-          Iniciar sesión con Microsoft
+          <span style={{ flex: 1, textAlign: 'center' }}>Iniciar sesión con Microsoft</span>
         </button>
       </div>
     </div>
