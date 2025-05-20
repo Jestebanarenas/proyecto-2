@@ -33,7 +33,19 @@ const IssueTable: React.FC<{ onlyForMotorcycle?: boolean }> = ({ onlyForMotorcyc
 
   return (
     <div className="customer-table-container">
-      <h1>Incidencias {onlyForMotorcycle && motorcycleId ? `de Moto #${motorcycleId}` : ""}</h1>
+      <h1>
+        Incidencias {onlyForMotorcycle && motorcycleId ? `de Moto #${motorcycleId}` : ""}
+      </h1>
+      <button
+        style={{ marginBottom: 16 }}
+        onClick={() =>
+          onlyForMotorcycle && motorcycleId
+            ? navigate(`/motorcycles/${motorcycleId}/issues/new`)
+            : navigate("/issues/new")
+        }
+      >
+        Crear Incidencia
+      </button>
       <table>
         <thead>
           <tr>
@@ -69,7 +81,19 @@ const IssueTable: React.FC<{ onlyForMotorcycle?: boolean }> = ({ onlyForMotorcyc
                 )}
               </td>
               <td>
-                <button onClick={() => handleDelete(issue.id)} style={{ color: "red" }}>Eliminar</button>
+                <button
+                  onClick={() =>
+                    onlyForMotorcycle && motorcycleId
+                      ? navigate(`/motorcycles/${motorcycleId}/issues/${issue.id}/edit`)
+                      : navigate(`/issues/${issue.id}/edit`)
+                  }
+                  style={{ marginRight: 8 }}
+                >
+                  Editar
+                </button>
+                <button onClick={() => handleDelete(issue.id)} style={{ color: "red" }}>
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}

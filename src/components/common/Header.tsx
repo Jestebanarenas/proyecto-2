@@ -69,6 +69,7 @@ const Header: React.FC = () => {
         <Link to="/motorcycles" className="navbar-link">Motos</Link>
         <Link to="/photos" className="navbar-link">Fotos</Link>
         <Link to="/issues" className="navbar-link">Incidencias</Link>
+        <Link to="/shifts" className="navbar-link">Turnos</Link>
         {!user && (
           <Link to="/login" className="navbar-link">Login</Link>
         )}

@@ -430,3 +430,27 @@ form button[type="submit"]:hover {
 .address-switch-btn:hover {
   background: #125ea2;
 }
+
+/* Notification alert styles */
+/* Notification alert styles */
+.order-alert {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: #ff9800;
+  color: #fff;
+  padding: 18px 32px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 9999;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  animation: fadeInOut 5s;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px);}
+  10% { opacity: 1; transform: translateY(0);}
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px);}
+}
