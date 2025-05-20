@@ -22,6 +22,9 @@ const MainPage = () => {
         <Link to="/orders/new" className="main-link main-link-order">
           Crear Pedido
         </Link>
+        <Link to= "/Drivers" className="main-link">
+          Ver Repartidores
+        </Link>
       </nav>
     </div>
   );

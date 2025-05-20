@@ -10,7 +10,7 @@ import AddressTable from './components/Address/AddressTable';
 import ProductTable from './components/Product/ProductTable';
 import OrderPage from './components/order/OrderPage';
 import Header from './components/common/Header';
-import DriverTable from './components/Driver/DriverTable';
+import DriverTable from './components/driver/DriverTable';
 
 
 const App = () => {
@@ -27,6 +27,7 @@ const App = () => {
         <Route path="/orders" element={<OrderPage />} />
         <Route path="/orders/new" element={<OrderPage />} />
         <Route path="/drivers" element={<DriverTable />} />
+        
         
         {/* Add more routes as needed */}
       </Routes>

@@ -4,7 +4,7 @@ import { IIssue } from '../../types/Issue.type';
 import { createIssue, updateIssue, fetchIssueById } from '../../api/issue.api';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const IssueForm = () => {
+const IssueTable = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<IIssue>();
@@ -31,6 +31,15 @@ const IssueForm = () => {
     }
   };
 
+  
+  const [drivers, setDrivers] = React.useState<{ id: number; name: string }[]>([]);
+  React.useEffect(() => {
+    // Fetch drivers for the select
+    fetch('/api/drivers') // Adjust to your actual endpoint
+      .then(res => res.json())
+      .then(setDrivers);
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>Descripción:</label>
@@ -53,9 +62,20 @@ const IssueForm = () => {
       <input type="number" {...register('motorcycle_id', { required: true, valueAsNumber: true })} />
       {errors.motorcycle_id && <p>El ID de motocicleta es obligatorio</p>}
 
+      <label>Conductor:</label>
+      <select {...register('driver_id', { required: true, valueAsNumber: true })}>
+        <option value="">Seleccione un conductor</option>
+        {drivers.map(driver => (
+          <option key={driver.id} value={driver.id}>{driver.name}</option>
+        ))}
+      </select>
+      {errors.driver_id && <p>El conductor es obligatorio</p>}
+
+      
+
       <button type="submit">Guardar</button>
     </form>
   );
 };
 
-export default IssueForm;
+export default IssueTable;

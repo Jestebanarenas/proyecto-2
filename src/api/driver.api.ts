@@ -11,4 +11,9 @@ export const getDrivers = async (): Promise<DriverResponse[]> => {
 export const getDriver = async (id: string): Promise<DriverResponse> => {
   const res = await axios.get<DriverResponse>(`${API_URL}/drivers/${id}`);
   return res.data;
-}
+};
+
+// Add this function:
+export const deleteDriver = async (id: number): Promise<void> => {
+  await axios.delete(`${API_URL}/drivers/${id}`);
+};
