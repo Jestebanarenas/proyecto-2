@@ -62,6 +62,7 @@ const DriverTable: React.FC = () => {
                 <button onClick={() => navigate(`/drivers/${driver.id}/edit`)}>Editar</button>
                 <button onClick={() => handleDelete(Number(driver.id))} style={{color: "red", marginLeft: 8}}>Eliminar</button>
                 <button onClick={() => navigate(`/drivers/${driver.id}/issues`)} style={{marginLeft: 8}}>Ver Incidencias</button>
+                <button onClick={() => navigate(`/drivers/${driver.id}/motorcycles`)} style={{marginLeft: 8, background: "#43a047"}}>Ver Motos</button>
               </td>
             </tr>
           ))}

@@ -25,6 +25,9 @@ const MainPage = () => {
         <Link to= "/Drivers" className="main-link">
           Ver Repartidores
         </Link>
+        <Link to="/motorcycles" className="main-link">
+          Ver Motocicletas
+        </Link>
       </nav>
     </div>
   );

@@ -11,6 +11,8 @@ import ProductTable from './components/Product/ProductTable';
 import OrderPage from './components/order/OrderPage';
 import Header from './components/common/Header';
 import DriverTable from './components/driver/DriverTable';
+import MotorcycleTable from './components/Motorcycle/MotorcycleTable';
+import MotorcycleListByDriver from './components/Motorcycle/MotorcycleByDriver';
 
 
 const App = () => {
@@ -27,6 +29,9 @@ const App = () => {
         <Route path="/orders" element={<OrderPage />} />
         <Route path="/orders/new" element={<OrderPage />} />
         <Route path="/drivers" element={<DriverTable />} />
+        <Route path="/motorcycles" element={<MotorcycleTable />} />
+        <Route path="/motorcycles/driver/:driverId" element={<MotorcycleListByDriver />} />
+      
         
         
         {/* Add more routes as needed */}
