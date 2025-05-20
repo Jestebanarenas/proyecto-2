@@ -1,46 +1,126 @@
-# Getting Started with Create React App
+# Proyecto-2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descripción
 
-## Available Scripts
+**Proyecto-2** es una plataforma web desarrollada con **React** y **TypeScript** que permite gestionar domicilios en moto. Está diseñada para facilitar la interacción entre clientes, repartidores y administradores, optimizando la entrega rápida y eficiente de productos.
 
-In the project directory, you can run:
+La aplicación ofrece una interfaz intuitiva y responsiva que permite a los usuarios realizar pedidos, y a los repartidores gestionar las entregas desde una misma plataforma.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tecnologías utilizadas
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **React** (Create React App)
+- **TypeScript**
+- **CSS / SASS**
+- **Node.js** y **npm** para la gestión de dependencias y scripts
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Instalación
 
-### `npm run build`
+1. Clona este repositorio:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/Jestebanarenas/proyecto-2.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Accede a la carpeta del proyecto:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+cd proyecto-2
+```
 
-### `npm run eject`
+3. Instala las dependencias:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Configuración de variables de entorno
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Si la aplicación requiere variables de entorno, crea un archivo `.env` en la raíz del proyecto con las siguientes variables (ejemplo):
 
-## Learn More
+```env
+REACT_APP_API_URL=https://api.tu-dominio.com
+REACT_APP_OTRA_VARIABLE=valor
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Recuerda reiniciar el servidor de desarrollo después de modificar el archivo `.env`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+
+## Uso
+
+Para ejecutar la aplicación en modo desarrollo:
+
+```bash
+npm start
+```
+
+Luego abre tu navegador y ve a [http://localhost:3000](http://localhost:3000). La aplicación se recargará automáticamente cuando hagas cambios en el código.
+
+---
+
+## Pruebas
+
+Para correr las pruebas automatizadas:
+
+```bash
+npm test
+```
+
+Esto lanzará el modo interactivo para ejecutar y monitorear pruebas.
+
+---
+
+## Despliegue
+
+Para crear una versión optimizada para producción:
+
+```bash
+npm run build
+```
+
+El contenido listo para producción se encontrará en la carpeta `build/`. Puedes subir esta carpeta a cualquier servidor estático o servicio de hosting como Netlify, Vercel, Firebase Hosting, etc.
+
+---
+
+## Scripts disponibles
+
+- `npm start`: Inicia la aplicación en modo desarrollo.
+- `npm test`: Ejecuta pruebas automatizadas.
+- `npm run build`: Construye la aplicación para producción, optimizando los archivos.
+- `npm run eject`: (Opcional) Expone la configuración interna de Create React App. Úsalo con precaución.
+
+---
+
+## Estructura del proyecto
+
+- `/public`: Archivos estáticos (HTML, íconos, etc).
+- `/src`: Código fuente en TypeScript, incluyendo componentes, estilos y utilidades.
+- `.gitignore`: Archivos ignorados por Git.
+- `package.json`: Dependencias y scripts.
+- `tsconfig.json`: Configuración de TypeScript.
+- `README.md`: Documentación del proyecto.
+
+---
+
+## Contribuciones
+
+Las contribuciones son siempre bienvenidas. Puedes:
+
+- Abrir un issue para reportar bugs o proponer mejoras.
+- Enviar pull requests con nuevas funcionalidades o correcciones.
+
+Por favor, sigue las buenas prácticas de Git y el estándar de código del proyecto.
+
+---
+
+## Licencia
+
+Este proyecto está licenciado bajo la licencia **MIT**.
+
+---
