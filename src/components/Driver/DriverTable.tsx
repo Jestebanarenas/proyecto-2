@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getDrivers } from "../../api/driver.api";
+import { getDrivers, deleteDriver } from "../../api/driver.api";
+import { useNavigate } from "react-router-dom";
 import { DriverResponse } from "../../types/driver.type";
 
 const statusColors: Record<string, string> = {
@@ -10,14 +11,23 @@ const statusColors: Record<string, string> = {
 
 const DriverTable: React.FC = () => {
   const [drivers, setDrivers] = useState<DriverResponse[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDrivers().then(setDrivers);
   }, []);
 
+  const handleDelete = async (id: number) => {
+    if (window.confirm("¿Seguro que quieres eliminar este conductor?")) {
+      await deleteDriver(id);
+      setDrivers(drivers.filter(d => Number(d.id) !== id));
+    }
+  };
+
   return (
     <div className="customer-table-container">
       <h1>Conductores</h1>
+      <button onClick={() => navigate('/drivers/new')} style={{marginBottom: 16}}>Crear Conductor</button>
       <table>
         <thead>
           <tr>
@@ -27,6 +37,7 @@ const DriverTable: React.FC = () => {
             <th>Email</th>
             <th>Estado</th>
             <th>Creado</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +58,12 @@ const DriverTable: React.FC = () => {
                 </span>
               </td>
               <td>{new Date(driver.created_at).toLocaleString()}</td>
+              <td>
+                <button onClick={() => navigate(`/drivers/${driver.id}/edit`)}>Editar</button>
+                <button onClick={() => handleDelete(Number(driver.id))} style={{color: "red", marginLeft: 8}}>Eliminar</button>
+                <button onClick={() => navigate(`/drivers/${driver.id}/issues`)} style={{marginLeft: 8}}>Ver Incidencias</button>
+                <button onClick={() => navigate(`/drivers/${driver.id}/motorcycles`)} style={{marginLeft: 8, background: "#43a047"}}>Ver Motos</button>
+              </td>
             </tr>
           ))}
         </tbody>
