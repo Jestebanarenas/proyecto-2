@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import Header from './components/common/Header';
 import OrdersByCustomerPage from './pages/OrdersByCustomer';
 import StatsDashboard from './pages/Graphics';
+import Chatbot from './components/bot/Chatbot';
 
 
 
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/stats" element={<StatsDashboard />} />
           {/* Add more routes as needed */}
         </Routes>
+        <Chatbot />
       </BrowserRouter>
     </GoogleOAuthProvider>
   );
