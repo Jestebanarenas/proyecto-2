@@ -19,7 +19,11 @@ const LoginPage: React.FC = () => {
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(
       REDIRECT_URI
     )}&scope=user:email`;
-    window.location.href = githubAuthUrl;
+    window.open(
+      githubAuthUrl,
+      '_blank',
+      'width=500,height=700'
+    );
   };
 
   React.useEffect(() => {
