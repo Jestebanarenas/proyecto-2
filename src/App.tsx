@@ -11,6 +11,9 @@ import ProductTable from './components/Product/ProductTable';
 import OrderPage from './components/order/OrderPage';
 import Header from './components/common/Header';
 import DriverTable from './components/Driver/DriverTable';
+import PedidoNotifier from './components/PedidoNotifier';
+import MapPedidos from './pages/MapOrders';
+
 
 
 const App = () => {
@@ -27,6 +30,7 @@ const App = () => {
         <Route path="/orders" element={<OrderPage />} />
         <Route path="/orders/new" element={<OrderPage />} />
         <Route path="/drivers" element={<DriverTable />} />
+        <Route path="/orders/new/pedido-notifier" element={<PedidoNotifier pedidos={pedidos} />} />
         
         {/* Add more routes as needed */}
       </Routes>
