@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import TrackComponent from "../components/Motorcycle/TrackComponent";
+import "../styles/track.css";
 
-const TrackPage = () => {
-  const [loading, setLoading] = useState(false);
-
-
+const TrackerPage: React.FC = () => {
   return (
-    <></>
+    <div className="tracker-page-wrapper">
+      <TrackComponent />
+    </div>
   );
 };
 
-export default TrackPage;
+export default TrackerPage;
