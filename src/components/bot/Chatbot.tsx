@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-const GEMINI_API_KEY = 'AIzaSyDph8V6LY52TrNS8lfUM-ib4cZmZEY58PY'; // Reemplaza con tu API Key real
+const GEMINI_API_KEY = 'AIzaSyD-awE0fI0EVaIJwG1Owp4lGq2pZsADjws'; // Reemplaza con tu API Key real
 
 async function sendMessageToGemini(message: string): Promise<string> {
   try {

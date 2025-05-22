@@ -4,18 +4,20 @@ import OrderForm from "./OrderForm";
 import { createOrder } from "../../api/order.api";
 import { OrderData } from "../../types/Order.type";
 import OrderMap from "../map/map";
-  import { geocodeAddress } from "../../utils/geocode";
+import { geocodeAddress } from "../../utils/geocode";
+import OrderNotification from "../OrderNotification";
 
 const OrderPage = () => {
   const [loading, setLoading] = useState(false);
   const [orderAddress, setOrderAddress] = useState<string | null>(null);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [showNotification, setShowNotification] = useState(false);
 
   const handleCreateOrder = async (data: OrderData) => {
     setLoading(true);
     try {
       await createOrder(data);
-      alert("Orden creada correctamente");
+      setShowNotification(true);
       // Compose address string
       const addr = data.address
         ? `${data.address.street}, ${data.address.city}, ${data.address.state}, ${data.address.postal_code}`
@@ -38,6 +40,7 @@ const OrderPage = () => {
       {coords && orderAddress && (
         <OrderMap lat={coords.lat} lng={coords.lng} address={orderAddress} />
       )}
+      <OrderNotification show={showNotification} onClose={() => setShowNotification(false)} />
     </div>
   );
 };

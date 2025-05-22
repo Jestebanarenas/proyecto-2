@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [user, setUser] = React.useState<{ name: string; picture: string } | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -33,6 +34,14 @@ const Header: React.FC = () => {
     navigate('/login');
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -57,19 +66,96 @@ const Header: React.FC = () => {
           <span style={{ marginLeft: 12, fontWeight: 700, fontSize: 22, color: "#222" }}>Domi JJJ</span>
         </Link>
       </div>
+      
       <div className="navbar-links">
-        <Link to="/customers" className="navbar-link">Clientes</Link>
-        <Link to="/adresses" className="navbar-link">Direcciones</Link>
-        <Link to="/products" className="navbar-link">Productos</Link>
-        <Link to="/restaurants" className="navbar-link">Restaurantes</Link>
-        <Link to="/orders/new" className="navbar-link">Crear Pedido</Link>
-        <Link to="/orders/by-customer" className="navbar-link">Órdenes por Cliente</Link>
-        <Link to="/stats" className="navbar-link">Estadísticas</Link>
-        <Link to="/drivers" className="navbar-link">Conductores</Link>
-        <Link to="/motorcycles" className="navbar-link">Motos</Link>
-        <Link to="/photos" className="navbar-link">Fotos</Link>
-        <Link to="/issues" className="navbar-link">Incidencias</Link>
-        <Link to="/shifts" className="navbar-link">Turnos</Link>
+        {/* Main action buttons - always visible */}
+        <Link to="/orders/new" className="navbar-link primary-action">Crear Pedido</Link>
+        
+        {/* Deployable Menu Button */}
+        <div className="navbar-menu-container">
+          <button 
+            className="navbar-menu-toggle"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+            <span>Menú</span>
+          </button>
+          
+          {/* Dropdown Menu */}
+          {isMenuOpen && (
+            <div className="navbar-dropdown">
+              <div className="navbar-dropdown-overlay" onClick={closeMenu}></div>
+              <div className="navbar-dropdown-content">
+                <div className="navbar-dropdown-section">
+                  <h4>Gestión</h4>
+                  <Link to="/customers" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">👥</span>
+                    Clientes
+                  </Link>
+                  <Link to="/adresses" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">📍</span>
+                    Direcciones
+                  </Link>
+                  <Link to="/products" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">🍕</span>
+                    Productos
+                  </Link>
+                  <Link to="/restaurants" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">🏪</span>
+                    Restaurantes
+                  </Link>
+                </div>
+                
+                <div className="navbar-dropdown-section">
+                  <h4>Pedidos</h4>
+                  <Link to="/orders/by-customer" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">📋</span>
+                    Órdenes por Cliente
+                  </Link>
+                  <Link to="/stats" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">📊</span>
+                    Estadísticas
+                  </Link>
+                </div>
+                
+                <div className="navbar-dropdown-section">
+                  <h4>Operaciones</h4>
+                  <Link to="/drivers" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">🚗</span>
+                    Conductores
+                  </Link>
+                  <Link to="/motorcycles" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">🏍️</span>
+                    Motos
+                  </Link>
+                  <Link to="/shifts" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">⏰</span>
+                    Turnos
+                  </Link>
+                </div>
+                
+                <div className="navbar-dropdown-section">
+                  <h4>Otros</h4>
+                  <Link to="/photos" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">📸</span>
+                    Fotos
+                  </Link>
+                  <Link to="/issues" className="navbar-dropdown-link" onClick={closeMenu}>
+                    <span className="dropdown-icon">⚠️</span>
+                    Incidencias
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {/* User authentication */}
         {!user && (
           <Link to="/login" className="navbar-link">Login</Link>
         )}
