@@ -70,7 +70,7 @@ const Header: React.FC = () => {
       <div className="navbar-links">
         {/* Main action buttons - always visible */}
         <Link to="/orders/new" className="navbar-link primary-action">Crear Pedido</Link>
-        
+        <Link to="/orders/track" className="navbar-link primary-action">Rastrear</Link>
         {/* Deployable Menu Button */}
         <div className="navbar-menu-container">
           <button 
