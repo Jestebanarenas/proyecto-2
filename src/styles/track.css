@@ -1,0 +1,222 @@
+/* Track Page Wrapper */
+.tracker-page-wrapper {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Main Tracker Container */
+.tracker-container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Header Section */
+.tracker-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #f9fafb;
+}
+
+.tracker-header h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.tracker-header p {
+  margin: 0.5rem 0 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Content Layout */
+.tracker-content {
+  display: flex;
+  min-height: 600px;
+}
+
+/* Motorcycle List Section */
+.motorcycle-list-container {
+  width: 320px;
+  border-right: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.list-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.loading-indicator {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.motorcycle-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Motorcycle Items */
+.motorcycle-item {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.motorcycle-item:hover {
+  background-color: #f9fafb;
+}
+
+.motorcycle-item.active {
+  background-color: #f0f7ff;
+}
+
+.motorcycle-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.plate {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.details {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Action Buttons */
+.track-actions button {
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-start {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn-start:hover {
+  background-color: #059669;
+}
+
+.btn-stop {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-stop:hover {
+  background-color: #dc2626;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Map View Section */
+.map-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.map-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.status-indicator {
+  margin-left: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-indicator.active {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.map-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+/* Map Placeholder */
+.map-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+}
+
+.placeholder-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.placeholder-content svg {
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.placeholder-content h4 {
+  margin: 0.5rem 0 0;
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.placeholder-content p {
+  margin: 0.25rem 0 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Disabled States */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

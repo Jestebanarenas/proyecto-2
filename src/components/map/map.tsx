@@ -19,7 +19,7 @@ interface Props {
 }
 
 const OrderMap: React.FC<Props> = ({ lat, lng, address }) => (
-  <MapContainer center={[lat, lng]} zoom={15} style={{ height: 300, width: "100%", borderRadius: 12, marginTop: 24 }}>
+  <MapContainer center={[lat, lng]} zoom={15} style={{ height: "100%", width: "100%", borderRadius: 12, marginTop: 24 }}>
     <TileLayer
       attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
