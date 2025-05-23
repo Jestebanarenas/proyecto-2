@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 const GITHUB_CLIENT_ID = 'Ov23liiR619Hw3omiBLG';
 const REDIRECT_URI = 'http://localhost:3000';
 
-const MICROSOFT_CLIENT_ID = 'f8cdef31-a31e-4b4a-93e4-5f571e91255a';
+const MICROSOFT_CLIENT_ID = '12c6491c-4987-4abc-aa36-a4f3a3cf1409';
 const MICROSOFT_REDIRECT_URI = 'http://localhost:3000';
 
 // Iconos SVG
